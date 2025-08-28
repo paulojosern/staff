@@ -42,6 +42,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "cookies-next": "^5.1.0",
+    "cpf-cnpj-validator": "^1.0.3",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
     "framer-motion": "^12.10.5",

@@ -13,7 +13,7 @@ export async function DELETE(request: Request) {
 	try {
 		const { searchParams } = new URL(request.url);
 		const name = searchParams.get('name');
-		console.log('pauuuuuuuo');
+
 		if (!name) {
 			return NextResponse.json(
 				{ error: 'Image name is required' },

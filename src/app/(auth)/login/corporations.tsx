@@ -16,7 +16,6 @@ import { Input } from '@/components/ui/input';
 
 import api from '@/lib/api/axios';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useToast } from '@/providers/ToastContext';
 import { DataOptions } from '@/components/ui/auto-complete';
 import { Loader2 } from 'lucide-react';
 import { DataCorporation } from '@/providers/useCorporation';
@@ -27,7 +26,6 @@ interface Props {
 }
 
 export default function Corporations({ setList, setLogin }: Props) {
-	const { addToast } = useToast();
 	const formSchema = z.object({
 		email: z.string().min(2, {
 			message: 'Email must be at least 2 characters.',
@@ -58,13 +56,7 @@ export default function Corporations({ setList, setLogin }: Props) {
 				setList(data);
 			})
 			.catch((error) => {
-				addToast({
-					type: 'error',
-					title: 'Erro',
-					description: error?.response?.data?.message
-						? error?.response?.data?.message
-						: 'Ocorreu um erro',
-				});
+				console.log(error);
 			})
 			.finally(() => setLoading(false));
 	}

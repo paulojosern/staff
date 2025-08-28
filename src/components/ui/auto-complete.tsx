@@ -23,8 +23,10 @@ export type DataOptions = DataCorporation & {
 	value: string;
 	label: string;
 };
+
+export type Options = { value: string; label: string };
 interface AutocompleteProps {
-	options: { value: string; label: string }[];
+	options: Options[];
 	placeholder?: string;
 	emptyMessage?: string;
 	name?: string;

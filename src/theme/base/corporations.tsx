@@ -1,9 +1,6 @@
-'use client';
-
 import * as React from 'react';
 
 import { useAuth } from '@/providers/useAuth';
-
 import { DataCorporation, useCorporation } from '@/providers/useCorporation';
 import { Autocomplete, DataOptions } from '@/components/ui/auto-complete';
 import { CommandDialog } from '@/components/ui/command';

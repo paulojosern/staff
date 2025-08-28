@@ -24,8 +24,14 @@ export const authService = {
 		});
 
 		if (response.data.accessToken) {
-			setCookie(constants.TOKEN_COOKIE + guid, response.data.accessToken);
+			const { accessToken, tipousuarioStaff, produtorId, prestadorId } =
+				response.data;
+			setCookie(constants.TOKEN_COOKIE + guid, accessToken);
 			setCookie(constants.GUID_COOKIE, guid);
+			setCookie(
+				constants.STAFF_USER_COOKIE,
+				`${tipousuarioStaff}__${produtorId | 0}__${prestadorId | 0}`
+			);
 		}
 
 		return response.data;
@@ -50,6 +56,8 @@ export const authService = {
 	async getCurrentUser() {
 		const guid = getCookie(constants.GUID_COOKIE) as string;
 		const token = getCookie(constants.TOKEN_COOKIE + guid) as string;
+		const staff_user = getCookie(constants.STAFF_USER_COOKIE) as string;
+		const [tipousuarioStaff, produtorId, prestadorId] = staff_user?.split('__');
 
 		if (token) {
 			const { usuarioID, role, corporacaoID } = jwtDecode<TypeDecode>(token);
@@ -62,6 +70,9 @@ export const authService = {
 				corporacaoID,
 				tipousuario: role,
 				accessToken: token,
+				tipousuarioStaff,
+				produtorId,
+				prestadorId,
 			};
 		}
 	},

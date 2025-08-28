@@ -15,8 +15,18 @@ import {
 	SidebarRail,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { useCorporation } from '@/providers/useCorporation';
 import { useAuth } from '@/providers/useAuth';
+
+interface DataNavMain {
+	navMain: {
+		title: string;
+		url: string;
+		items: {
+			title: string;
+			url: string;
+		}[];
+	}[];
+}
 
 interface MenuAppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 	handleMouseEnter: () => void;
@@ -28,10 +38,9 @@ export function Menu({
 	handleMouseLeave,
 	...props
 }: MenuAppSidebarProps) {
-	const { corporation } = useCorporation();
-	const { getRolesByPage } = useAuth();
+	const { user } = useAuth();
 
-	const data = {
+	const data: DataNavMain = {
 		navMain: [
 			{
 				title: 'Home',
@@ -39,82 +48,13 @@ export function Menu({
 				items: [],
 			},
 			{
-				title: 'Calendário',
-				url: '/calendario',
+				title: 'Alocações',
+				url: '/alocacoes/' + user?.produtorId,
 				items: [],
 			},
 			{
-				title: 'Usuários',
-				url: '#',
-				items: [
-					{
-						title: 'Pesquisa',
-						url: '/usuarios',
-					},
-					{
-						title: 'Cadastrar',
-						url: '#',
-					},
-				],
-			},
-			{
-				title: 'Cadastros',
-				url: '#',
-				items: [
-					{
-						title: 'Tipo de produto',
-						url: '/produtos/tipos',
-					},
-					{
-						title: 'Produtos',
-						url: '/produtos',
-					},
-
-					{
-						title: 'Tipo de ingressos',
-						url: '/tipos-ingressos',
-					},
-					{
-						title: 'Modelo de eventos',
-						url: '/eventos/modelos',
-					},
-					getRolesByPage('eventos') && {
-						title: 'Eventos',
-						url: '/eventos',
-					},
-					{
-						title: 'Catalogos',
-						url: '/catalogos',
-					},
-				],
-			},
-			{
-				title: 'Cupom',
-				url: '/cupom',
-				items: [],
-			},
-			{
-				title: 'Galeria de imagens',
-				url: '/galeria',
-				items: [],
-			},
-
-			{
-				title: corporation?.corporacaoID === 1 ? 'Corporações' : 'Configuração',
-				url:
-					corporation?.corporacaoID === 1
-						? '/corporacoes'
-						: `/configuracao/${corporation?.corporacaoGuid}`,
-				items: [],
-			},
-
-			{
-				title:
-					corporation?.corporacaoID === 1 ? 'Permissionamento' : 'Permissões',
-				url:
-					corporation?.corporacaoID === 1
-						? '/permissionamento'
-						: `/permissoes/${corporation?.corporacaoID}`,
+				title: 'Prestadores',
+				url: '/prestadores',
 				items: [],
 			},
 		],
@@ -136,7 +76,7 @@ export function Menu({
 									<GalleryVerticalEnd className="size-4" />
 								</div>
 								<div className="flex flex-col gap-0.5 leading-none">
-									<span className="font-semibold">SOU DA LIGA</span>
+									<span className="font-semibold">STAFF</span>
 									<span className="">v1.0.0</span>
 								</div>
 							</a>
