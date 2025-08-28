@@ -3,32 +3,33 @@
 import { useCorporation } from '@/providers/useCorporation';
 import AuthGuard from '@/services/guard/authGuard';
 import Base from '@/theme/base';
-
-import { Calendar } from '@/components/ui/calendar';
+import Widget from './widget';
+import { useAuth } from '@/providers/useAuth';
 
 function HomePage() {
-	// const { getRolesByPage } = useAuth();
 	const { corporation } = useCorporation();
-
-	const date = [new Date('2025/05/17'), new Date('2025/05/18')];
-
-	const handleDateChange = (value: Date[] | undefined) => {
-		console.log(value);
-	};
-	console.log(corporation);
+	const { user } = useAuth();
 
 	return (
 		<Base>
-			<div className="space-y-4 mb-4">
-				<h1>{corporation?.corporacaoNome}</h1>
+			<div className="space-y-4 mb-4 md:hidden">
+				<p className="font-medium text-lg md:hidden">
+					{corporation?.corporacaoNome}
+				</p>
 			</div>
 
-			<Calendar
-				mode="multiple"
-				selected={date}
-				onSelect={handleDateChange}
-				className="rounded-lg border p-8  mb-4  mt-4"
-			/>
+			<div className="flex flex-col md:flex-row  gap-4 w-full">
+				<Widget
+					title="Prestadores"
+					description="Lista de staff, prestadores e produtores"
+					url="/prestadores"
+				/>
+				<Widget
+					title="Alocações"
+					description="Lsita de usuários para alocação"
+					url={`/alocacoes/${user?.produtorId}`}
+				/>
+			</div>
 		</Base>
 	);
 }
